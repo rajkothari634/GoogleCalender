@@ -97,5 +97,7 @@ app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname + "/index.html"));
 });
 
+app.get("/saveUser", ac.saveUser);
+
 const port = 5000;
 app.listen(port, () => console.log(`Server running at ${port}`));
