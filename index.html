@@ -1,0 +1,51 @@
+<html>
+  <head>
+    <title>Authentication</title>
+    <meta charset="utf-8" />
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="google-signin-client_id"
+      content="285404437660-uo30sobj15jh040n5kjd10lhfjjqd7sq.apps.googleusercontent.com"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+      function onSignIn(googleUser) {
+        console.log("rsj");
+        var profile = googleUser.getBasicProfile();
+        console.log("rsj");
+        console.log("ID: " + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        console.log("Name: " + profile.getName());
+        console.log("Image URL: " + profile.getImageUrl());
+        console.log("Email: " + profile.getEmail()); // This is null if the 'email' scope is not present.
+      }
+      //get request for requesting url on window onload
+      function getUrl() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            $("#authentication").append(
+              '<p id="check">' + this.responseText + "</p>"
+            );
+          }
+        };
+        xhttp.open("GET", "http://localhost:5000/login", true);
+        xhttp.send();
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container" id="authentication">
+      <h2>Google Sign-in Required</h2>
+      <button class="btn btn-primary" type="button" onclick="getUrl()">
+        Sign-In
+      </button>
+      <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    </div>
+  </body>
+</html>
