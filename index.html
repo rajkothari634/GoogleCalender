@@ -23,20 +23,40 @@
         console.log("Name: " + profile.getName());
         console.log("Image URL: " + profile.getImageUrl());
         console.log("Email: " + profile.getEmail()); // This is null if the 'email' scope is not present.
-      }
-      //get request for requesting url on window onload
-      function getUrl() {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
           if (this.readyState == 4 && this.status == 200) {
-            $("#authentication").append(
-              '<p id="check">' + this.responseText + "</p>"
-            );
+            console.log(this.responseText);
+            $("#authentication").append(this.responseText);
           }
         };
-        xhttp.open("GET", "http://localhost:5000/login", true);
+        xhttp.open(
+          "GET",
+          "http://localhost:5000/saveUser/" +
+            "?data=" +
+            profile.getId() +
+            " &" +
+            profile.getName() +
+            "&" +
+            profile.getEmail(),
+          true
+        );
+
         xhttp.send();
       }
+      //get request for requesting url on window onload
+      //    function getUrl() {
+      //     var xhttp = new XMLHttpRequest();
+      //     xhttp.onreadystatechange = function () {
+      //       if (this.readyState == 4 && this.status == 200) {
+      //         $("#authentication").append(
+      //           '<p id="check">' + this.responseText + "</p>"
+      //         );
+      //       }
+      //     };
+      //     xhttp.open("GET", "http://localhost:5000/login", true);
+      //     xhttp.send();
+      //   }
     </script>
   </head>
   <body>
