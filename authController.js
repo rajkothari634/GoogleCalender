@@ -69,6 +69,7 @@
 // app.listen(port, () => console.log(`Server running at ${port}`));
 
 const { google } = require("googleapis");
+const path = require("path");
 const OAuth2Data = require("./google-key.json");
 const fs = require("fs");
 
@@ -189,28 +190,55 @@ async function getGoogleAccountFromCode(code) {
   }
 }
 
-exports.saveUser = async (req, res, next) => {
-  try {
-    const code = req.url.split("?")[1].substring("5");
-    console.log("raj1");
-    console.log(code);
-    console.log(req.url);
+// exports.saveUser = async (req, res, next) => {
+//   try {
+//     const code = req.url.split("?")[1].substring("5");
+//     console.log("raj1");
+//     console.log(code);
+//     console.log(req.url);
 
-    const userdata = await getGoogleAccountFromCode(code);
-    console.log("raj2");
+//     const userdata = await getGoogleAccountFromCode(code);
+//     console.log("raj2");
+//     let user = {
+//       id: userdata.id,
+//       emailid: userdata.email,
+//       token: userdata.tokens,
+//       token_time: "120000",
+//     };
+//     console.log("raj3");
+//     users.push(user);
+//     console.log("raj4");
+//     fs.writeFile("./user-data.json", JSON.stringify(users));
+//     console.log("raj5");
+//     res.sendFile(path.join(__dirname + "/calender.html"));
+//   } catch (err) {
+//     res.status(400).json({
+//       status: "faillll",
+//       responseText: err,
+//     });
+//   }
+// };
+
+exports.saveUser = (req, res, next) => {
+  try {
+    console.log("opoppp");
+    const userdata = req.url.split("?")[1].substr("5").split("&");
+    console.log(userdata);
     let user = {
-      id: userdata.id,
-      emailid: userdata.email,
-      token: userdata.tokens,
+      id: userdata[0],
+      emailid: userdata[2],
+      token: userdata[0] + userdata[2] + userdata[1],
       token_time: "120000",
     };
     console.log("raj3");
     users.push(user);
     console.log("raj4");
-    fs.writeFile("./user-data.json", JSON.stringify(users));
-    console.log("raj5");
-    res.sendFile(path.join(__dirname + "/calender.html"));
+    fs.writeFile("./user-data.json", JSON.stringify(users), (dt) => {
+      console.log("raj5");
+      res.sendFile(path.join(__dirname + "/calender.html"));
+    });
   } catch (err) {
+    console.log(err);
     res.status(400).json({
       status: "faillll",
       responseText: err,
