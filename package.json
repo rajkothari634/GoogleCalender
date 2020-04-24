@@ -1,0 +1,16 @@
+{
+  "name": "calender",
+  "version": "1.0.0",
+  "description": "integration of google calender",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "googleapis": "^49.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Raj Kothari",
+  "license": "ISC"
+}
