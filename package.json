@@ -4,7 +4,7 @@
   "description": "integration of google calender",
   "main": "server.js",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "googleapis": "^49.0.0"
   },
   "devDependencies": {},
